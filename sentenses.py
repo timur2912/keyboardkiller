@@ -1,52 +1,41 @@
 import json
 import random
 
+
+class SentenceDatabase:
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.database = self.load_database()
+
+    def load_database(self):
+        try:
+            with open(self.file_name, "r") as file:
+                database = json.load(file)
+        except FileNotFoundError:
+            database = []
+        return database
+
+    def save_database(self):
+        with open(self.file_name, "w") as file:
+            json.dump(self.database, file)
+
+    def add_sentence(self, sentence):
+        self.database.append(sentence)
+        self.save_database()
+        print("ADDED SENTENCE: " + sentence)
+
+    def get_sentences(self):
+        return self.database
+
+    def get_random_sentence(self):
+        if not self.database:
+            return None
+        random_sentence = random.choice(self.database)
+        return random_sentence
+
+
+# Пример использования класса SentenceDatabase
 DATABASE_FILE = "sentences_database.json"
 
-# Функция для загрузки базы данных из файла JSON
-def load_database():
-    try:
-        with open(DATABASE_FILE, "r") as file:
-            database = json.load(file)
-    except FileNotFoundError:
-        database = []
-
-    return database
-
-
-# Функция для сохранения базы данных в файл JSON
-def save_database(database):
-    with open(DATABASE_FILE, "w") as file:
-        json.dump(database, file)
-
-
-# Функция для добавления предложения в базу данных
-def add_sentence(sentence):
-    database = load_database()
-    database.append(sentence)
-    save_database(database)
-    print("ADDED SENTENSE:" + sentence)
-
-
-# Функция для получения всех предложений из базы данных
-def get_sentences():
-    database = load_database()
-    return database
-
-# Функция для возвращения случайного предложения из базы данных
-def get_random_sentence():
-    database = load_database()
-    if not database:
-        return None
-    random_sentence = random.choice(database)
-    return random_sentence
-
-# Добавляем предложения в базу данных
-#add_sentence("Привет, как дела?")
-#add_sentence("Какой сегодня день?")
-#add_sentence("Какой ваш любимый цвет?")
-
-# Получаем все предложения из базы данных
-sentences = get_sentences()
-for sentence in sentences:
-    print(sentence)
+# Создаем объект базы данных
+database = SentenceDatabase(DATABASE_FILE)
