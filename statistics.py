@@ -3,7 +3,7 @@ from datetime import datetime
 import tkinter as tk1
 from tkinter import ttk
 
-class Database:
+class Statisics_Database:
     def __init__(self, filename):
         self.filename = filename
 
@@ -47,7 +47,7 @@ class DatabaseApp(tk1.Tk):
         super().__init__()
         self.title("Статистика упражений")
 
-        self.database = Database(database_file)
+        self.database = Statisics_Database(database_file)
 
         self.tree = ttk.Treeview(self)
         self.tree["columns"] = ("sentence", "date", "time_added", "errors", "typing_time")
@@ -65,7 +65,10 @@ class DatabaseApp(tk1.Tk):
         for entry in self.database.data:
             self.tree.insert("", tk1.END, values=(entry['sentence'], entry['date'], entry['time_added'], entry['errors'], entry['typing_time']))
 
-statistics_database = Database("data.json")
+
+
+
+statistics_database = Statisics_Database("data.json")
 
 sentence = "Привет, мир!"
 errors = 2
@@ -75,4 +78,6 @@ typing_time = 10
 
 #statistics_database.print_data()
 #statistics_database_app = DatabaseApp("data.json")
+
+
 
