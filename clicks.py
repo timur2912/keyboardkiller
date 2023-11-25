@@ -47,10 +47,4 @@ class ClicksDatabase:
 
 
 DATABASE_FILE = "clicks_database.json"
-
 clicks_database = ClicksDatabase(DATABASE_FILE)
-clicks_database.increase_clicks("A")
-clicks = clicks_database.get_clicks("A")
-#print(f"Количество неправильных нажатий на букву A: {clicks}")
-#database.clear_database()
-#database.display_database()
